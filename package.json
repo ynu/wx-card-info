@@ -7,7 +7,6 @@
     "start": "NODE_ENV=production node app.js"
   },
   "dependencies": {
-    "access-token-redis": "^1.0.0",
     "body-parser": "~1.10.0",
     "compression": "~1.3.0",
     "cookie-parser": "^1.3.3",

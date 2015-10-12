@@ -116,7 +116,7 @@ var EventHandlers = {
      * 提示修改用户密码信息
      */
     'user_password_info': function (msg, req, res, next) {
-        var wxapi = require('../models/wxent-api-redis')(wxcfg.corpId, wxcfg.secret, wxcfg.agentId, config.redis.host, config.redis.port);
+        var wxapi = require('wxent-api-redis')(wxcfg.corpId, wxcfg.secret, wxcfg.agentId, config.redis.host, config.redis.port);
         wxapi.getUser(msg.FromUserName, function (err, user) {
             req.wxsession.process = 'user_password_info';
             var user_attrs = user.extattr.attrs;

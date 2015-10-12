@@ -1,4 +1,4 @@
-FROM google/nodejs
+FROM node
 
 RUN mkdir /app
 COPY ./app.js /app/
