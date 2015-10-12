@@ -80,6 +80,11 @@ var card_web_service_utils = {
         var reg = /^[A-Za-z0-9]{6,}$/;
         return reg.test(password);
     },
+
+    'generated_password': function() {
+        // 生成随机的六位数字密码
+        return parseInt(Math.random(1000)*1000000).toString();
+    }
 };
 
 var handleEvent = function (eventHandlers) {
@@ -129,8 +134,9 @@ var EventHandlers = {
                 }
             }
             if (attr_value) {
-                res.reply(util.format('您的一卡通号是%s\n' +
-                    '请直接回复新密码修改一卡通密码', attr_value));
+                res.reply(util.format('您的一卡通号（上网账号）是%s\n' +
+                    '请回复Y或y重置密码。\n' +
+                    '请尽快登陆自助服务平台（http://202.203.209.111:8800/）修改密码', attr_value));
                 req.wxsession.card_num = attr_value;
                 req.wxsession.save();
                 //console.info(JSON.stringify(req.wxsession, null, 4));
@@ -156,16 +162,18 @@ var TextProcessHandlers = {
      * 修改一卡通密码
      */
     'user_password_info': function (msg, req, res, next) {
-        if(card_web_service_utils.validate_password(msg.Content) && req.wxsession.card_num) {
+        // 确认修改
+        if(msg.Content.toLowerCase() === 'y' && req.wxsession.card_num) {
             function token_got(token) {
+                var generated_password = card_web_service_utils.generated_password();
                 var edit_user_request_data = {
                     'user_name': req.wxsession.card_num,
-                    'user_data': JSON.stringify({'user_password': msg.Content}),
+                    'user_data': JSON.stringify({'user_password': generated_password}),
                     'token': token
                 };
                 client.edit_user(edit_user_request_data, function (err, result) {
                     // 清楚session信息
-                    delete req.wxsession.process;;
+                    delete req.wxsession.process;
                     delete req.wxsession.card_num;
 
                     if (err) {
@@ -175,7 +183,7 @@ var TextProcessHandlers = {
                         res.reply('出现错误，请截图并与管理员联系。\n错误信息：' + JSON.parse(result.return.$value).msg);
                     }
                     else {
-                        res.reply('修改密码成功');
+                        res.reply('重置密码成功，重置的密码是：' + generated_password);
                     }
                 });
             };
@@ -183,7 +191,10 @@ var TextProcessHandlers = {
             card_web_service_utils.request_token();
         }
         else {
-            res.reply('修改的密码只能是数字字母的组合，且长度大于6');
+            // 清楚session信息
+            delete req.wxsession.process;
+            delete req.wxsession.card_num;
+            res.reply('请先点击"上网账号密码重置"，然后回复Y或y确认即可重置');
         }
     },
 };
