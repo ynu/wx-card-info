@@ -120,7 +120,7 @@ var EventHandlers = {
         wxapi.getUser(msg.FromUserName, function (err, user) {
             req.wxsession.process = 'user_password_info';
             var user_attrs = user.extattr.attrs;
-            console.info(JSON.stringify(user, null, 4));
+            //console.info(JSON.stringify(user, null, 4));
             // 获取用户的'一卡通号'卡号，保存在session中
             var attr_value;
             for (index in user_attrs) {
@@ -133,7 +133,7 @@ var EventHandlers = {
                     '请直接回复新密码修改一卡通密码', attr_value));
                 req.wxsession.card_num = attr_value;
                 req.wxsession.save();
-                console.info(JSON.stringify(req.wxsession, null, 4));
+                //console.info(JSON.stringify(req.wxsession, null, 4));
             }
             else {
                 res.reply(util.format('不小心发生点错误了，呜呜呜～～～'));
