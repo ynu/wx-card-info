@@ -16,7 +16,7 @@ var config = {
         },
         redis: {
             host: process.env.REDIS_HOST || 'localhost',
-            port: process.env.REDIS_PORT || 6379
+            port: process.env.REDIS_PORT_6379_TCP_PORT || 6379
         },
         webservice: {
             url: process.env.WEBSERVICE_URL,
@@ -38,7 +38,7 @@ var config = {
         },
         redis: {
             host: process.env.REDIS_HOST || 'redis',
-            port: process.env.REDIS_PORT || 6379
+            port: process.env.REDIS_PORT_6379_TCP_PORT || 6379
         },
         webservice: {
             url: process.env.WEBSERVICE_URL,
