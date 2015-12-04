@@ -4,7 +4,7 @@ var env = process.env.NODE_ENV || 'production';
 
 var config = {
     development: {
-        port: 40001,
+        port: 50002,
         qyh: {
             corpId: process.env.QYH_CORPID,
             secret: process.env.QYH_SECRET
@@ -26,7 +26,7 @@ var config = {
     },
 
     production: {
-        port: 40001,
+        port: 50002,
         qyh: {
             corpId: process.env.QYH_CORPID,
             secret: process.env.QYH_SECRET

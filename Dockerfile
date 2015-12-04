@@ -9,5 +9,5 @@ COPY ./config /app/config/
 WORKDIR /app
 RUN npm install
 
-EXPOSE 40001
+EXPOSE 50002
 CMD npm start

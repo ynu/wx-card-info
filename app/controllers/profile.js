@@ -201,6 +201,6 @@ var TextProcessHandlers = {
 
 
 module.exports = function (app, cfg) {
-    app.use('/profile', router);
+    app.use('/', router);
     router.use('/', wxent(wxcfg, wxent.event(handleEvent(EventHandlers)).text(handleText(TextProcessHandlers, 'process'))));
 };
