@@ -20,4 +20,6 @@ wx_service_center:
     - WEBSERVICE_URL
     - WEBSERVICE_ID
     - WEBSERVICE_KEY
+    - REDIS_HOST
+    - REDIS_PORT_MANUAL
   restart: always
